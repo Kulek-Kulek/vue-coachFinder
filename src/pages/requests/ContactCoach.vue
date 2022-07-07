@@ -11,7 +11,9 @@
     <div class="actions">
       <base-button>Send Message</base-button>
     </div>
-    <p v-if="!formIsValid">Neither an email nor a message can be empty!</p>
+    <p v-if="!formIsValid" :class="{ errors: !formIsValid }">
+      Neither an email nor a message can be empty!
+    </p>
   </form>
 </template>
 
@@ -36,6 +38,12 @@ export default {
         this.formIsValid = false;
         return;
       }
+      this.$store.dispatch('requests/contactCoach', {
+        email: this.email,
+        message: this.message,
+        coachId: this.$route.params.id,
+      });
+      this.$router.replace('/coaches');
     },
   },
 };
