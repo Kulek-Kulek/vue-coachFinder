@@ -8,17 +8,20 @@ export default {
       areas: data.areas,
       hourlyRate: data.rate,
     };
+    console.log(userId);
+    const token = context.rootGetters.token;
 
     const response = await fetch(
-      `https://coachfinder-vue-default-rtdb.firebaseio.com/coaches/${userId}.json`,
+      `https://coachfinder-vue-default-rtdb.firebaseio.com/coaches/${userId}.json?auth=` +
+        token,
       {
         method: 'PUT',
         body: JSON.stringify(coachData),
       }
     );
 
-    // const resData = await response.json();
-
+    const resData = await response.json();
+    console.log(resData);
     if (!response.ok) {
       // error
     }
